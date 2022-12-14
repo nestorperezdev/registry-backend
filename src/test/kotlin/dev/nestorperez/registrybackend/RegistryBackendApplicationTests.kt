@@ -8,6 +8,7 @@ class RegistryBackendApplicationTests {
 
 	@Test
 	fun contextLoads() {
+		assert(true)
 	}
 
 }
