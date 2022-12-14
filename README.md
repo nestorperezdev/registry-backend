@@ -4,16 +4,21 @@
 [![Coverage Status](https://coveralls.io/repos/github/codecentric/springboot-sample-app/badge.svg?branch=master)](https://coveralls.io/github/codecentric/springboot-sample-app?branch=master)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+This application is a wrapper around the docker registry API (v2)
+
+The user can use his own registry docker server (url, port password and username) to connect to his registry and consume the data in a graphql form.
+
+This app makes use of [ExpediaGroup](https://github.com/ExpediaGroup/graphql-kotlin) open source graphql kotlin library.
 
 ## Requirements
 
 For building and running the application you need:
 
-- [JDK 18](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+- [JDK 18](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
 - [Gradle 7.5.1](https://gradle.org/releases/)
 
 ## Building the application
-To build the application you can use
+ Build and test this app:
 ```shell
 ./gradlew build
 ```
@@ -22,7 +27,7 @@ To build the application you can use
 
 There are several ways to run a Spring Boot application on your local machine. One way is to execute the `main` method in the `dev.nestorperez.registrybackend` class from your IDE.
 
-Alternatively you can use the gradlew like so:
+Alternatively you can use the gradlew command:
 
 ```shell
 ./gradlew bootRun
@@ -33,6 +38,13 @@ TBD
 
 ## Contributing
 TBD
+
+## Usage
+After running the app you can visit:
+
+* http://localhost:8080/playground: Inspect the schema and run queries.
+* http://localhost:8080/graphql: Download schema (WIP)
+
 
 ## Copyright
 
