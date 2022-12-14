@@ -25,6 +25,13 @@ jobs:
         with:
           paths: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
           token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 75
+          min-coverage-overall: 80
           min-coverage-changed-files: 90
+
+      - name: Fail PR if overall coverage is less than 80% or PR coverage is less than 90%
+        if: ${{ steps.jacoco.outputs.coverage-overall < 80.0 || steps.jacoco.outputs.overage-changed-files < 90.0 }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            core.setFailed('Overall coverage is less than 80% or changed files coverage is less than 90%')
 
