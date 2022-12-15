@@ -69,3 +69,11 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+kover {
+    filters {
+        annotations {
+            excludes += listOf("dev.nestorperez.registrybackend.util.SkipCoverage", "*Generated")
+        }
+    }
+}
