@@ -14,7 +14,7 @@ This app makes use of [ExpediaGroup](https://github.com/ExpediaGroup/graphql-kot
 
 For building and running the application you need:
 
-- [JDK 18](https://www.oracle.com/java/technologies/javase/jdk18-archive-downloads.html)
+- [JDK 11](https://www.azul.com/downloads/?version=java-11-lts&package=jdk)
 - [Gradle 7.5.1](https://gradle.org/releases/)
 
 ## Building the application

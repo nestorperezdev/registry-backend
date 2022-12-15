@@ -2,6 +2,7 @@ package dev.nestorperez.registrybackend
 
 import dev.nestorperez.registrybackend.registry.ContextInterceptor
 import dev.nestorperez.registrybackend.registry.RegistryApi
+import dev.nestorperez.registrybackend.util.SkipCoverage
 import okhttp3.OkHttpClient
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -28,6 +29,7 @@ class RegistryBackendApplication {
             .create(RegistryApi::class.java)
 }
 
+@SkipCoverage
 fun main(args: Array<String>) {
     runApplication<RegistryBackendApplication>(*args)
 }
