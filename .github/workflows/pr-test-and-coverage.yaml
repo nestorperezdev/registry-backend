@@ -31,7 +31,7 @@ jobs:
           min-coverage-changed-files: 90
 
       - name: Fail PR if overall coverage is less than 80% or PR coverage is less than 90%
-        if: ${{ steps.kover.outputs.coverage-overall < 80.0 || steps.kover.outputs.overage-changed-files < 90.0 }}
+        if: ${{ steps.kover.outputs.coverage-overall < 80.0 || steps.kover.outputs.coverage-changed-files < 90.0 }}
         uses: actions/github-script@v6
         with:
           script: |
