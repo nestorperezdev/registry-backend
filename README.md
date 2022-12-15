@@ -20,7 +20,7 @@ For building and running the application you need:
 ## Building the application
  Build and test this app:
 ```shell
-./gradlew build
+./gradlew assemble
 ```
 
 ## Running the application locally
@@ -34,7 +34,9 @@ Alternatively you can use the gradlew command:
 ```
 
 ## Testing application
-TBD
+```shell
+./gradlew clean test
+```
 
 ## Contributing
 TBD
