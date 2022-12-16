@@ -1,7 +1,7 @@
 package dev.nestorperez.registrybackend.registry
 
-import dev.nestorperez.registrybackend.model.AuthSettings
-import dev.nestorperez.registrybackend.model.Context
+import dev.nestorperez.registrybackend.schema.AuthSettings
+import dev.nestorperez.registrybackend.schema.Context
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify

@@ -1,6 +1,6 @@
 package dev.nestorperez.registrybackend.util
 
-import dev.nestorperez.registrybackend.model.AuthSettings
+import dev.nestorperez.registrybackend.schema.AuthSettings
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
