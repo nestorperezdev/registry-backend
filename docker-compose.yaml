@@ -1,7 +1,8 @@
 version: "3.3"
 services:
   registry-backend:
-    image: "registry.nestorperez.dev/nestorperezdev/registry-backend:${VERSION}"
+    image: "registry-backend:${VERSION}"
+    build: .
     container_name: registry-backend-container
     restart: unless-stopped
     ports:

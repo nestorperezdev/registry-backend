@@ -1,11 +1,28 @@
 package dev.nestorperez.registrybackend.registry
 
-import dev.nestorperez.registrybackend.model.Context
-import dev.nestorperez.registrybackend.model.RegistryRepository
+import dev.nestorperez.registrybackend.schema.Context
+import dev.nestorperez.registrybackend.registry.model.RegistryCatalog
+import dev.nestorperez.registrybackend.registry.model.RegistryManifest
+import dev.nestorperez.registrybackend.registry.model.RegistryTagList
+import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Tag
 
 interface RegistryApi {
     @GET("/v2/_catalog")
-    suspend fun catalog(@Tag context: Context): RegistryRepository
+    suspend fun catalog(@Tag context: Context): RegistryCatalog
+
+    @GET("/v2/{repositoryName}/tags/list")
+    suspend fun tagsList(
+        @Tag context: Context,
+        @Path(value = "repositoryName", encoded = true) repositoryName: String
+    ): RegistryTagList
+
+    @GET("/v2/{repositoryName}/manifests/{tag}")
+    suspend fun getManifest(
+        @Tag context: Context,
+        @Path(value = "repositoryName", encoded = true) repositoryName: String,
+        @Path(value = "tag", encoded = true) tag: String
+    ): Response<RegistryManifest>
 }

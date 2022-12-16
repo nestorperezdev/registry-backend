@@ -1,5 +1,7 @@
-package dev.nestorperez.registrybackend.model
+package dev.nestorperez.registrybackend.schema
 
+import dev.nestorperez.registrybackend.schema.AuthSettings
+import dev.nestorperez.registrybackend.schema.CypherAuthSettings
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 

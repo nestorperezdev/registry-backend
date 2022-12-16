@@ -1,4 +1,4 @@
-package dev.nestorperez.registrybackend.model
+package dev.nestorperez.registrybackend.schema
 
 import dev.nestorperez.registrybackend.util.decipherAuthSettings
 

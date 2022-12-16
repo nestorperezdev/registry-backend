@@ -1,7 +1,6 @@
 package dev.nestorperez.registrybackend.registry
 
-import dev.nestorperez.registrybackend.model.Context
-import io.mockk.every
+import dev.nestorperez.registrybackend.schema.Context
 import io.mockk.mockk
 import okhttp3.Request
 import org.junit.jupiter.api.Assertions.*

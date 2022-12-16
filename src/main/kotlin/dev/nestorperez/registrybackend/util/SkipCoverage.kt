@@ -6,6 +6,7 @@ package dev.nestorperez.registrybackend.util
     AnnotationTarget.FUNCTION,
     AnnotationTarget.PROPERTY_GETTER,
     AnnotationTarget.PROPERTY_SETTER,
-    AnnotationTarget.CONSTRUCTOR
+    AnnotationTarget.CONSTRUCTOR,
+    AnnotationTarget.VALUE_PARAMETER
 )
 annotation class SkipCoverage

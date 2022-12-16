@@ -13,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @SpringBootApplication
 class RegistryBackendApplication {
+
     @Bean
     fun okHttpClient() = OkHttpClient
         .Builder()
