@@ -1,0 +1,10 @@
+version: "3.3"
+services:
+  registry-backend:
+    image: "registry.nestorperez.dev/nestorperezdev/registry-backend:${VERSION}"
+    container_name: registry-backend-container
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    command: >
+      java -jar app.jar --spring.profiles.active=prod
