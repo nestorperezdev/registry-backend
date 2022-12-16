@@ -11,7 +11,6 @@ import io.mockk.coEvery
 import io.mockk.coVerifySequence
 import io.mockk.mockk
 import kotlinx.coroutines.runBlocking
-import okhttp3.ResponseBody
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
