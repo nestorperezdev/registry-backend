@@ -1,0 +1,6 @@
+graphql:
+  packages:
+    - "dev.nestorperez.registrybackend"
+spring:
+  profiles:
+    active: "dev"
