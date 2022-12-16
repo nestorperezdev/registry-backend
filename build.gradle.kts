@@ -38,9 +38,6 @@ dependencies {
         exclude("junit")
     }
     testImplementation("com.ninja-squad:springmockk:3.0.1")
-    allprojects {
-
-    }
 }
 
 configurations {
@@ -68,6 +65,10 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.bootJar {
+    archiveFileName.set("app.jar")
 }
 
 kover {
