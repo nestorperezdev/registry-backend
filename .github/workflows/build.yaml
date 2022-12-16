@@ -1,9 +1,6 @@
 name: Project Build
 on:
   pull_request:
-  push:
-    branches:
-      - master
 jobs:
   build:
     runs-on: ubuntu-22.04

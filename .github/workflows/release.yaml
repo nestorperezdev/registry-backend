@@ -1,0 +1,51 @@
+name: Release to production
+on:
+  push:
+    tags:
+      - '*'
+env:
+  REGISTRY: registry.nestorperez.dev
+  IMAGE_NAME: ${{ github.repository }}
+jobs:
+  release-to-production:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Login to registry.nestorperez.dev
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: 11
+          distribution: zulu
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Test
+        run: ./gradlew clean test
+
+      - name: Set RELEASE VERSION
+        run: echo "RELEASE_VERSION=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
+      - name: Build docker image
+        uses: docker/build-push-action@v3.2.0
+        with:
+          push: true
+          tags: registry.nestorperez.dev/${{ env.IMAGE_NAME }}:${{ env.RELEASE_VERSION }}
+      - name: Deploying to server
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          port: 22
+          username: ${{ secrets.SSH_USERNAME }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
+          privateKey: ${{ secrets.SSH_SERVER_KEY }}
+          command: cd registry && git fetch --all --tags && git checkout tags/${{ env.RELEASE_VERSION }} && export VERSION=${{ env.RELEASE_VERSION }} && docker-compose up -d

@@ -27,11 +27,11 @@ jobs:
           path: ${{ github.workspace }}/build/reports/kover/xml/report.xml
           token: ${{ secrets.GITHUB_TOKEN }}
           title: Code Coverage
-          min-coverage-overall: 80
-          min-coverage-changed-files: 90
+          min-coverage-overall: 90
+          min-coverage-changed-files: 95
 
-      - name: Fail PR if overall coverage is less than 80% or PR coverage is less than 90%
-        if: ${{ steps.kover.outputs.coverage-overall < 80.0 || steps.kover.outputs.coverage-changed-files < 90.0 }}
+      - name: Fail PR if overall coverage is less than 95% or PR coverage is less than 90%
+        if: ${{ steps.kover.outputs.coverage-overall < 90.0 || steps.kover.outputs.coverage-changed-files < 95.0 }}
         uses: actions/github-script@v6
         with:
           script: |
