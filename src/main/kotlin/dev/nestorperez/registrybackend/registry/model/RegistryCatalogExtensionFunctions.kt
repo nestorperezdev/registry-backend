@@ -8,5 +8,6 @@ fun RegistryCatalog.toCatalog(context: Context): Catalog =
     Catalog(
         clientUrl = context.url,
         repositories = this.repositories.map { Repository(repositoryName = it, context = context) },
-        context = context
+        context = context,
+        error = null
     )

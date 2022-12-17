@@ -1,7 +1,8 @@
 package dev.nestorperez.registrybackend
 
-import dev.nestorperez.registrybackend.registry.ContextInterceptor
+import dev.nestorperez.registrybackend.registry.interceptors.ContextInterceptor
 import dev.nestorperez.registrybackend.registry.RegistryApi
+import dev.nestorperez.registrybackend.registry.interceptors.ErrorHandlingInterceptor
 import dev.nestorperez.registrybackend.util.SkipCoverage
 import okhttp3.OkHttpClient
 import org.springframework.beans.factory.annotation.Autowired
@@ -18,6 +19,7 @@ class RegistryBackendApplication {
     fun okHttpClient() = OkHttpClient
         .Builder()
         .addInterceptor(ContextInterceptor())
+        .addInterceptor(ErrorHandlingInterceptor())
         .build()
 
     @Bean

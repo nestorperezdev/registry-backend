@@ -1,4 +1,4 @@
-package dev.nestorperez.registrybackend.registry
+package dev.nestorperez.registrybackend.registry.interceptors
 
 import dev.nestorperez.registrybackend.schema.AuthSettings
 import dev.nestorperez.registrybackend.schema.Context
