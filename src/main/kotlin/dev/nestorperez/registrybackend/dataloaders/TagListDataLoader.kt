@@ -7,6 +7,7 @@ import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.schema.TagListData
 import dev.nestorperez.registrybackend.util.SkipCoverage
 import graphql.VisibleForTesting
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.future.future
 import org.dataloader.DataLoader
@@ -33,6 +34,7 @@ class TagListDataLoader(private val registryApi: RegistryApi) :
             DataLoaderOptions.newOptions().setCachingEnabled(true)
         )
 
+    @OptIn(DelicateCoroutinesApi::class)
     @VisibleForTesting
     fun completableFuture(requestedTags: List<TagListDataLoaderInput>): CompletableFuture<List<TagListData>> {
         return GlobalScope.future { batchLoader(requestedTags) }
@@ -65,6 +67,7 @@ class TagListDataLoader(private val registryApi: RegistryApi) :
     }
 
 }
+
 
 @SkipCoverage
 data class TagListDataLoaderInput(val context: Context, val repositoryName: String, val tag: String)
