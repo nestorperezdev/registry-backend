@@ -11,7 +11,7 @@ import retrofit2.http.Tag
 
 interface RegistryApi {
     @GET("/v2/_catalog")
-    suspend fun catalog(@Tag context: Context): RegistryCatalog
+    suspend fun catalog(@Tag context: Context): Response<RegistryCatalog>
 
     @GET("/v2/{repositoryName}/tags/list")
     suspend fun tagsList(

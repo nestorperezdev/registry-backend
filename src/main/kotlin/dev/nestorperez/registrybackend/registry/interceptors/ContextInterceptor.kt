@@ -1,5 +1,6 @@
-package dev.nestorperez.registrybackend.registry
+package dev.nestorperez.registrybackend.registry.interceptors
 
+import dev.nestorperez.registrybackend.registry.findContextOnRequest
 import okhttp3.Credentials
 import okhttp3.Interceptor
 import okhttp3.Response

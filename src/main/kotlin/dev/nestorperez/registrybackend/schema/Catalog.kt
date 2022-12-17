@@ -13,9 +13,11 @@ import java.util.concurrent.CompletableFuture
 @SkipCoverage
 class Catalog(
     @GraphQLDescription("Client URL")
-    val clientUrl: String,
+    val clientUrl: String?,
+    @GraphQLDescription("In case of error with the request")
+    val error: String?,
     @GraphQLDescription("Repositories list")
-    val repositories: List<Repository>,
+    val repositories: List<Repository>?,
     @GraphQLIgnore
     val context: Context
 )

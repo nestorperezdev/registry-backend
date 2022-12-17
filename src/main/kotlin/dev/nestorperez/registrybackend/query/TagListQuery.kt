@@ -6,7 +6,7 @@ import dev.nestorperez.registrybackend.registry.model.RegistryTagList
 import dev.nestorperez.registrybackend.registry.model.toTagListGraphql
 import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.schema.TagList
-import dev.nestorperez.registrybackend.util.consumeResponseIfValid
+import dev.nestorperez.registrybackend.util.handleIfSuccessOrError
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import retrofit2.Response
@@ -25,13 +25,14 @@ class TagListQuery : Query {
 }
 
 fun Response<RegistryTagList>.consumeAndConvertToTagList(context: Context, repositoryName: String) =
-    this.consumeResponseIfValid {
-        it.toTagListGraphql(context)
-    } ?: kotlin.run {
-        TagList(
-            name = repositoryName,
-            registryTagList = null,
-            context = context,
-            error = "Error fetching data"
-        )
-    }
+    this.handleIfSuccessOrError(
+        success = { it.toTagListGraphql(context) },
+        error = {
+            TagList(
+                name = repositoryName,
+                registryTagList = null,
+                context = context,
+                error = it
+            )
+        }
+    )
