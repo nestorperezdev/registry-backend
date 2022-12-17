@@ -17,7 +17,7 @@ interface RegistryApi {
     suspend fun tagsList(
         @Tag context: Context,
         @Path(value = "repositoryName", encoded = true) repositoryName: String
-    ): RegistryTagList
+    ): Response<RegistryTagList>
 
     @GET("/v2/{repositoryName}/manifests/{tag}")
     suspend fun getManifest(

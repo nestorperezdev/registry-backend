@@ -6,6 +6,7 @@ import dev.nestorperez.registrybackend.registry.model.RegistryTagList
 import dev.nestorperez.registrybackend.registry.model.toTagListGraphql
 import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.schema.TagList
+import dev.nestorperez.registrybackend.util.buildApiResponse
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
@@ -31,10 +32,34 @@ class TagListQueryTest {
         val mockedResponse: RegistryTagList = mockk {
             every { toTagListGraphql(any()) }.returns(mockedTransform)
         }
-        coEvery { registryApi.tagsList(any(), any()) }.returns(mockedResponse)
+        coEvery { registryApi.tagsList(any(), any()) }.returns(
+            buildApiResponse(
+                isSuccessful = true,
+                body = mockedResponse
+            )
+        )
         val result = sut.tagsListQuery(ctx, repositoryName)
         assertEquals(mockedTransform, result)
         coVerify(exactly = 1) { registryApi.tagsList(ctx, "repoName") }
         verify(exactly = 1) { mockedResponse.toTagListGraphql(ctx) }
+    }
+
+    @Test
+    fun `on backend error`() = runBlocking {
+        mockkStatic("dev.nestorperez.registrybackend.registry.model.RegistryTagListExtensionFunctionsKt")
+        val ctx: Context = mockk()
+        val repositoryName = "repoName"
+        coEvery { registryApi.tagsList(any(), any()) }.returns(buildApiResponse(isSuccessful = false))
+        val result = sut.tagsListQuery(ctx, repositoryName)
+        assertEquals(
+            TagList(
+                name = repositoryName,
+                registryTagList = null,
+                context = ctx,
+                error = "Error fetching data"
+            ),
+            result
+        )
+        coVerify(exactly = 1) { registryApi.tagsList(ctx, "repoName") }
     }
 }

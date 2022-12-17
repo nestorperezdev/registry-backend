@@ -17,17 +17,23 @@ class TagList(
     @GraphQLDescription("Name of the repository")
     val name: String,
     @GraphQLIgnore
-    val registryTagList: List<String>,
+    val registryTagList: List<String>?,
     @GraphQLIgnore
     val context: Context,
+    @GraphQLDescription("In case of any error with the response")
+    val error: String?
 ) {
     @GraphQLDescription("Tag list of the repository")
-    @GraphQLName("tagList")
-    fun tagList(dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<List<TagListData>> {
-        return dataFetchingEnvironment.getValuesFromDataLoader(
-            TagListDataLoader.name,
-            registryTagList.map { tag -> TagListDataLoaderInput(context, name, tag) }
-        )
+    @GraphQLName("tagListData")
+    fun tagListData(dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<List<TagListData>?> {
+        return if (registryTagList == null) {
+            CompletableFuture.completedFuture(null)
+        } else {
+            dataFetchingEnvironment.getValuesFromDataLoader<TagListDataLoaderInput, TagListData>(
+                TagListDataLoader.name,
+                registryTagList.map { tag -> TagListDataLoaderInput(context, name, tag) }
+            ) as CompletableFuture<List<TagListData>?>
+        }
     }
 
     override fun hashCode(): Int {
