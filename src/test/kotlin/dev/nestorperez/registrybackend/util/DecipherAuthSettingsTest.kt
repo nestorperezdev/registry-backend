@@ -8,7 +8,7 @@ class DecipherAuthSettingsTest {
     @Test
     fun `should decipher AuthSettings`() {
         val cipherStr = ""
-        val expected = AuthSettings(username = "", password = "")
+        val expected = AuthSettings()
         val result = decipherAuthSettings(cipherStr)
         assertEquals(result, expected)
     }
