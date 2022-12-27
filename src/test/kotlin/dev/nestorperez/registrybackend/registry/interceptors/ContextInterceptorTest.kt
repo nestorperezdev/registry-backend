@@ -1,9 +1,11 @@
 package dev.nestorperez.registrybackend.registry.interceptors
 
+import dev.nestorperez.registrybackend.authapi.AuthApi
 import dev.nestorperez.registrybackend.schema.AuthSettings
 import dev.nestorperez.registrybackend.schema.BasicAuth
 import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.schema.JwtToken
+import dev.nestorperez.registrybackend.service.JwtTokenStorageService
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -15,6 +17,8 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class ContextInterceptorTest {
+    val authApi: AuthApi = mockk()
+    val jwtTokenStorageService: JwtTokenStorageService = mockk()
 
     @Test
     fun `should add jwt token to authorization header`() {
@@ -33,7 +37,7 @@ class ContextInterceptorTest {
             every { request() } returns request
             every { proceed(any()) } returns response
         }
-        ContextInterceptor().intercept(chain)
+        ContextInterceptor(jwtTokenStorageService, authApi).intercept(chain)
         verify {
             chain.proceed(withArg {
                 assertEquals("Bearer token", it.header("Authorization"))
@@ -51,7 +55,7 @@ class ContextInterceptorTest {
             every { request() }.returns(request)
             every { proceed(any()) }.returns(response)
         }
-        val result = ContextInterceptor().intercept(chain)
+        val result = ContextInterceptor(jwtTokenStorageService, authApi).intercept(chain)
         verify(exactly = 1) { chain.request() }
         verify(exactly = 1) { chain.proceed(any()) }
         assertEquals(response, result)
@@ -75,7 +79,7 @@ class ContextInterceptorTest {
             every { request() }.returns(request)
             every { proceed(any()) }.returns(response)
         }
-        val result = ContextInterceptor().intercept(chain)
+        val result = ContextInterceptor(jwtTokenStorageService, authApi).intercept(chain)
         verify(exactly = 1) { chain.request() }
         verify(exactly = 1) { chain.proceed(any()) }
         assertEquals(response, result)
@@ -99,7 +103,7 @@ class ContextInterceptorTest {
             every { request() }.returns(request)
             every { proceed(any()) }.returns(response)
         }
-        val result = ContextInterceptor().intercept(chain)
+        val result = ContextInterceptor(jwtTokenStorageService, authApi).intercept(chain)
         verify(exactly = 1) { chain.request() }
         verify(exactly = 1) { chain.proceed(any()) }
         assertEquals(response, result)
@@ -127,7 +131,7 @@ class ContextInterceptorTest {
             every { request() }.returns(request)
             every { proceed(any()) }.returns(response)
         }
-        val result = ContextInterceptor().intercept(chain)
+        val result = ContextInterceptor(jwtTokenStorageService, authApi).intercept(chain)
         verify(exactly = 1) { chain.request() }
         verify(exactly = 1) { chain.proceed(any()) }
         assertEquals(response, result)

@@ -1,9 +1,11 @@
 package dev.nestorperez.registrybackend.registry
 
+import dev.nestorperez.registrybackend.registry.model.DockerIoRegistryToken
 import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.registry.model.RegistryCatalog
 import dev.nestorperez.registrybackend.registry.model.RegistryManifest
 import dev.nestorperez.registrybackend.registry.model.RegistryTagList
+import dev.nestorperez.registrybackend.schema.DockerIoAuthSettings
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
