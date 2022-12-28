@@ -43,7 +43,8 @@ jobs:
         with:
           author_name: GitHub Actions Bot
           author_email: <>
-          message: "[skip ci] Update coverage badge"
+          message: "[skip ci] Update coverage badge
+          skip-checks: true"
           add: ".github/badges/coverage-badge.svg"
 
       - name: 🧨  Fail PR if overall coverage is less than 80% or PR coverage is less than 90%
