@@ -1,6 +1,9 @@
-name: Action for running tests and building coverage report on PR
+name: Action for running tests and building coverage report
 on:
   pull_request:
+  push:
+    branches:
+      - master
 jobs:
   pr-test-and-coverage:
     runs-on: ubuntu-22.04
@@ -45,13 +48,5 @@ jobs:
         with:
           author_name: GitHub Actions Bot
           author_email: <>
-          message: "[skip ci] Update coverage badge
-          skip-checks: true"
+          message: "[skip ci] Update coverage badge"
           add: ".github/badges/coverage-badge.svg"
-
-      - name: 🧨  Fail PR if overall coverage is less than 80% or PR coverage is less than 90%
-        if: ${{ steps.kover.outputs.coverage-overall < 80.0 || steps.kover.outputs.coverage-changed-files < 90.0 }}
-        uses: actions/github-script@v6
-        with:
-          script: |
-            core.setFailed('Overall coverage is less than 80% or changed files coverage is less than 90%')
