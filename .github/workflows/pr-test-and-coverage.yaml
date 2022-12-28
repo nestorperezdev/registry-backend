@@ -34,8 +34,7 @@ jobs:
         uses: emibcn/badge-action@v2.0.2
         with:
           label: "Code Coverage"
-          status: ${{ steps.kover.outputs.coverage }}
-          color: ${{ steps.kover.outputs.color }}
+          status: ${{ steps.kover.outputs.coverage-overall }}
           style: flat
           icon: "code-coverage"
           label-color: "white"
