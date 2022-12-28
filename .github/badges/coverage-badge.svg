@@ -1,0 +1,14 @@
+<svg width="148.1" height="20" viewBox="0 0 1481 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" aria-label="Code Coverage: 100">
+  <title>Code Coverage: 100</title>
+  <g>
+    <rect fill="#white" width="1171" height="200"/>
+    <rect fill="#08C" x="1171" width="310" height="200"/>
+  </g>
+  <g aria-hidden="true" fill="#fff" text-anchor="start" font-family="Verdana,DejaVu Sans,sans-serif" font-size="110">
+    <text x="290" y="148" textLength="841" fill="#000" opacity="0.1">Code Coverage</text>
+    <text x="280" y="138" textLength="841">Code Coverage</text>
+    <text x="1226" y="148" textLength="210" fill="#000" opacity="0.1">100</text>
+    <text x="1216" y="138" textLength="210">100</text>
+  </g>
+  <image x="40" y="35" width="200" height="132" xlink:href="code-coverage"/>
+</svg>
