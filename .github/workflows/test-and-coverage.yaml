@@ -1,6 +1,5 @@
 name: Action for running tests and building coverage report
 on:
-  pull_request:
   push:
     branches:
       - master
