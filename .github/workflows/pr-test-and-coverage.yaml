@@ -32,6 +32,7 @@ jobs:
 
       - name: 🎖  Generate coverage badge
         uses: emibcn/badge-action@v2.0.2
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         with:
           label: "Code Coverage"
           status: "${{ steps.kover.outputs.coverage-overall }}%"
@@ -40,6 +41,7 @@ jobs:
 
       - name: 💾  Commit coverage badge
         uses: EndBug/add-and-commit@v7
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
         with:
           author_name: GitHub Actions Bot
           author_email: <>
