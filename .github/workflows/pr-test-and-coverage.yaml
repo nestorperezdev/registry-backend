@@ -34,14 +34,13 @@ jobs:
         uses: emibcn/badge-action@v2.0.2
         with:
           label: "Code Coverage"
-          message: ${{ steps.kover.outputs.coverage }}
+          status: ${{ steps.kover.outputs.coverage }}
           color: ${{ steps.kover.outputs.color }}
           style: flat
-          logo: "code-coverage"
-          logoColor: "white"
-          logoWidth: 20
-          cacheSeconds: 3600
-          outputPath: ".github/badges/coverage-badge.svg"
+          icon: "code-coverage"
+          label-color: "white"
+          icon-width: 20
+          path: ".github/badges/coverage-badge.svg"
 
       - name: 💾  Commit coverage badge
         uses: EndBug/add-and-commit@v7
