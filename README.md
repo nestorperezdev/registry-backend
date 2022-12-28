@@ -1,7 +1,7 @@
 # Spring registry backend with GraphQL
 
 [![Project Build](https://github.com/nestorperezdev/registry-backend/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/nestorperezdev/registry-backend/actions/workflows/build.yaml)
-[![Coverage Status](https://github.com/nestorperezdev/registry-backend/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/nestorperezdev/registry-backend/.github/badges/coverage-badge.svg)
+![Coverage Status](.github/badges/coverage-badge.svg)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 This application is a wrapper around the docker registry API (v2)

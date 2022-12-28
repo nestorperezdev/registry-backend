@@ -34,11 +34,8 @@ jobs:
         uses: emibcn/badge-action@v2.0.2
         with:
           label: "Code Coverage"
-          status: ${{ steps.kover.outputs.coverage-overall }}
-          style: flat
-          icon: "code-coverage"
-          label-color: "white"
-          icon-width: 20
+          status: "${{ steps.kover.outputs.coverage-overall }}%"
+          color: ${{ steps.kover.outputs.coverage-overall > 80 && 'green' || 'red' }}
           path: ".github/badges/coverage-badge.svg"
 
       - name: 💾  Commit coverage badge
