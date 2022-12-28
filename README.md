@@ -1,6 +1,6 @@
 # Spring registry backend with GraphQL
 
-[![Build Status](https://travis-ci.org/codecentric/springboot-sample-app.svg?branch=master)](https://travis-ci.org/codecentric/springboot-sample-app)
+[![Project Build](https://github.com/nestorperezdev/registry-backend/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/nestorperezdev/registry-backend/actions/workflows/build.yaml)
 [![Coverage Status](https://coveralls.io/repos/github/codecentric/springboot-sample-app/badge.svg?branch=master)](https://coveralls.io/github/codecentric/springboot-sample-app?branch=master)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
