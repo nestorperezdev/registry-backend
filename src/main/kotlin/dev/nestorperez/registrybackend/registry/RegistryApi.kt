@@ -7,11 +7,16 @@ import dev.nestorperez.registrybackend.registry.model.RegistryTagList
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Tag
 
 interface RegistryApi {
     @GET("/v2/_catalog")
-    suspend fun catalog(@Tag context: Context): Response<RegistryCatalog>
+    suspend fun catalog(
+        @Tag context: Context,
+        @Query("last") skip: Int? = null,
+        @Query("n") take: Int? = null
+    ): Response<RegistryCatalog>
 
     @GET("/v2/{repositoryName}/tags/list")
     suspend fun tagsList(
