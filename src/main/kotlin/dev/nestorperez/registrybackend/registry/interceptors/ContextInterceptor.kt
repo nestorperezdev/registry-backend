@@ -2,21 +2,24 @@ package dev.nestorperez.registrybackend.registry.interceptors
 
 import dev.nestorperez.registrybackend.registry.findContextOnRequest
 import dev.nestorperez.registrybackend.schema.AuthSettings
-import okhttp3.Credentials
-import okhttp3.Interceptor
-import okhttp3.Request
-import okhttp3.Response
+import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrl
 
 
-class ContextInterceptor() : Interceptor {
+class ContextInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         var request = chain.request()
         val context = findContextOnRequest(request)
         context?.let {
-            val originalPath = request.url.pathSegments.joinToString("/")
+            val originalBuilder = request.url.newBuilder()
+            val contextUrl = context.url.toHttpUrl()
+            originalBuilder
+                .host(contextUrl.host)
+                .scheme(contextUrl.scheme)
+                .port(contextUrl.port)
             val builder = request
                 .newBuilder()
-                .url("${context.url}/${originalPath}")
+                .url(originalBuilder.build())
             it.authSettings?.let { auth ->
                 includeAuthSettingsInResponse(builder, auth)
             }

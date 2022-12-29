@@ -145,4 +145,82 @@ class ContextInterceptorTest {
             })
         }
     }
+
+    @Test
+    fun `should add query parameters to url`() {
+        val context = Context(
+            url = "http://otherhost",
+            port = null,
+            authSettings = AuthSettings(basicAuth = BasicAuth("user", "pass"))
+        )
+        val request = Request.Builder()
+            .url("http://localhost/url?param1=value1&param2=value2")
+            .tag(Context::class.java, context)
+            .build()
+        val chain: Interceptor.Chain = mockk {
+            every { request() } returns request
+            every { proceed(any()) }.returns(mockk())
+        }
+        ContextInterceptor().intercept(chain)
+        verify {
+            chain.proceed(withArg {
+                assertEquals(
+                    "http://otherhost/url?param1=value1&param2=value2",
+                    it.url.toString()
+                )
+            })
+        }
+    }
+
+    @Test
+    fun `should preserve schema`() {
+        val context = Context(
+            url = "https://otherhost",
+            port = null,
+            authSettings = AuthSettings(basicAuth = BasicAuth("user", "pass"))
+        )
+        val request = Request.Builder()
+            .url("http://localhost/url?param1=value1&param2=value2")
+            .tag(Context::class.java, context)
+            .build()
+        val chain: Interceptor.Chain = mockk {
+            every { request() } returns request
+            every { proceed(any()) }.returns(mockk())
+        }
+        ContextInterceptor().intercept(chain)
+        verify {
+            chain.proceed(withArg {
+                assertEquals(
+                    "https://otherhost/url?param1=value1&param2=value2",
+                    it.url.toString()
+                )
+            })
+        }
+    }
+
+    @Test
+    fun `should preserve port`() {
+        val context = Context(
+            url = "https://otherhost:8080",
+            port = null,
+            authSettings = AuthSettings(basicAuth = BasicAuth("user", "pass"))
+        )
+        val request = Request.Builder()
+            .url("http://localhost/url?param1=value1&param2=value2")
+            .tag(Context::class.java, context)
+            .build()
+        val chain: Interceptor.Chain = mockk {
+            every { request() } returns request
+            every { proceed(any()) }.returns(mockk())
+        }
+        ContextInterceptor().intercept(chain)
+        verify {
+            chain.proceed(withArg {
+                assertEquals(
+                    "https://otherhost:8080/url?param1=value1&param2=value2",
+                    it.url.toString()
+                )
+            })
+        }
+    }
 }
