@@ -17,17 +17,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 @SpringBootApplication
 class RegistryBackendApplication {
 
-    /**
-     * If current active profile is not production, then set the log level to body otherwise set it to basic
-     */
-    fun loggingInterceptor(environment: Environment) = HttpLoggingInterceptor().apply {
-        level = if (environment.activeProfiles.contains("prod")) {
-            HttpLoggingInterceptor.Level.BASIC
-        } else {
-            HttpLoggingInterceptor.Level.BODY
-        }
-    }
-
     @Bean
     fun okHttpClient(environment: Environment) = OkHttpClient.Builder()
         .addInterceptor(ContextInterceptor())
@@ -43,6 +32,17 @@ class RegistryBackendApplication {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(RegistryApi::class.java)
+}
+
+/**
+ * If current active profile is not production, then set the log level to body otherwise set it to basic
+ */
+fun loggingInterceptor(environment: Environment) = HttpLoggingInterceptor().apply {
+    level = if (environment.activeProfiles.contains("prod")) {
+        HttpLoggingInterceptor.Level.BASIC
+    } else {
+        HttpLoggingInterceptor.Level.BODY
+    }
 }
 
 @SkipCoverage
