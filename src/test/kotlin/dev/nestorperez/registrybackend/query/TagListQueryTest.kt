@@ -1,5 +1,6 @@
 package dev.nestorperez.registrybackend.query
 
+import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.ninjasquad.springmockk.MockkBean
 import dev.nestorperez.registrybackend.registry.RegistryApi
 import dev.nestorperez.registrybackend.registry.model.RegistryTagList
@@ -61,5 +62,60 @@ class TagListQueryTest {
             result
         )
         coVerify(exactly = 1) { registryApi.tagsList(ctx, "repoName") }
+    }
+
+    @Test
+    fun `should pass after and take to consumeAndConvertToTagList ext function`() = runBlocking {
+        val ctx = Context(url = "http://localhost:5000", port = null, authSettings = null)
+        val apiResponse = buildApiResponse(
+            isSuccessful = true,
+            body = RegistryTagList(
+                name = "repoName",
+                tags = listOf("tag1", "tag2", "tag3", "tag4", "tag5")
+            )
+        )
+        coEvery { registryApi.tagsList(any(), any()) }.returns(apiResponse)
+        val response = sut.tagsListQuery(ctx, "repoName", OptionalInput.Defined(2), OptionalInput.Defined(2))
+        assertEquals(
+            TagList(
+                name = "repoName",
+                registryTagList = listOf("tag3", "tag4"),
+                context = ctx,
+                error = null
+            ),
+            response
+        )
+    }
+
+    @Test
+    fun `should handle success with take and after parameters`() {
+        val context = mockk<Context>()
+        val successResponse = buildApiResponse(
+            isSuccessful = true,
+            body = RegistryTagList(
+                name = "repoName",
+                tags = listOf("tag1", "tag2", "tag3", "tag4", "tag5")
+            )
+        )
+        val response = successResponse.consumeAndConvertToTagList(context, "repoName", 2, 2)
+        assertEquals(2, response.registryTagList!!.size)
+        assertEquals("tag3", response.registryTagList!![0])
+        assertEquals("tag4", response.registryTagList!![1])
+    }
+
+    @Test
+    fun `should handle success when take and after params are null`() {
+        val context = mockk<Context>()
+        val successResponse = buildApiResponse(
+            isSuccessful = true,
+            body = RegistryTagList(
+                name = "repoName",
+                tags = listOf("tag1", "tag2", "tag3", "tag4", "tag5")
+            )
+        )
+        val response = successResponse.consumeAndConvertToTagList(context, "repoName", null, null)
+        assertEquals(5, response.registryTagList!!.size)
+        assertEquals("tag1", response.registryTagList!![0])
+        assertEquals("tag5", response.registryTagList!![4])
     }
 }

@@ -1,6 +1,7 @@
 package dev.nestorperez.registrybackend.dataloaders
 
 import com.expediagroup.graphql.dataloader.KotlinDataLoader
+import com.expediagroup.graphql.generator.execution.OptionalInput
 import dev.nestorperez.registrybackend.query.TagListQuery
 import dev.nestorperez.registrybackend.schema.Context
 import dev.nestorperez.registrybackend.schema.TagList
@@ -39,7 +40,12 @@ class TagListLoader(private val tagListQuery: TagListQuery) : KotlinDataLoader<T
     @VisibleForTesting
     suspend fun batchLoader(tags: List<TagListLoaderInput>): List<TagList> {
         return tags.map { input ->
-            tagListQuery.tagsListQuery(input.context, input.repositoryName)
+            tagListQuery.tagsListQuery(
+                input.context,
+                input.repositoryName,
+                take = input.take,
+                after = input.after
+            )
         }
     }
 
@@ -47,4 +53,9 @@ class TagListLoader(private val tagListQuery: TagListQuery) : KotlinDataLoader<T
 }
 
 @SkipCoverage
-data class TagListLoaderInput(val context: Context, val repositoryName: String)
+data class TagListLoaderInput(
+    val context: Context,
+    val repositoryName: String,
+    val take: OptionalInput<Int> = OptionalInput.Undefined,
+    val after: OptionalInput<Int> = OptionalInput.Undefined
+)
