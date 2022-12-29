@@ -3,6 +3,7 @@ package dev.nestorperez.registrybackend.schema
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.generator.annotations.GraphQLIgnore
 import com.expediagroup.graphql.generator.annotations.GraphQLName
+import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.expediagroup.graphql.server.extensions.getValueFromDataLoader
 import dev.nestorperez.registrybackend.dataloaders.TagListLoader
 import dev.nestorperez.registrybackend.dataloaders.TagListLoaderInput
@@ -31,10 +32,14 @@ class Repository(
 ) {
     @GraphQLDescription("List of tags on this repository")
     @GraphQLName("tagList")
-    fun tagList(dataFetchingEnvironment: DataFetchingEnvironment): CompletableFuture<TagList> {
+    fun tagList(
+        dataFetchingEnvironment: DataFetchingEnvironment,
+        take: OptionalInput<Int> = OptionalInput.Undefined,
+        after: OptionalInput<Int> = OptionalInput.Undefined
+    ): CompletableFuture<TagList> {
         return dataFetchingEnvironment.getValueFromDataLoader(
             TagListLoader.name,
-            TagListLoaderInput(context = context, repositoryName = repositoryName)
+            TagListLoaderInput(context = context, repositoryName = repositoryName, take = take, after = after)
         )
     }
 }

@@ -21,7 +21,9 @@ interface RegistryApi {
     @GET("/v2/{repositoryName}/tags/list")
     suspend fun tagsList(
         @Tag context: Context,
-        @Path(value = "repositoryName", encoded = true) repositoryName: String
+        @Path(value = "repositoryName", encoded = true) repositoryName: String,
+        @Query("last") skip: Int? = null,
+        @Query("n") take: Int? = null
     ): Response<RegistryTagList>
 
     @GET("/v2/{repositoryName}/manifests/{tag}")
