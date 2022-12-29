@@ -4,7 +4,7 @@ import com.expediagroup.graphql.generator.execution.OptionalInput
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.Assertions.*
 
-class OptionalInputValueOrNull {
+class OptionalInputValueOrNullTest {
     @Test
     fun `when optional is undefined value should be null`() {
         val optional: OptionalInput<Int> = OptionalInput.Undefined
