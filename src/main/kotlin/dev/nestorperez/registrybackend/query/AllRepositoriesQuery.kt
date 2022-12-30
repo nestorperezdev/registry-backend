@@ -26,7 +26,9 @@ class AllRepositoriesQuery : Query {
         @GraphQLDescription("The number of repositories to return")
         first: OptionalInput<Int> = OptionalInput.Undefined,
         @GraphQLDescription("The number of repositories to skip")
-        after: OptionalInput<Int> = OptionalInput.Undefined
+        after: OptionalInput<Int> = OptionalInput.Undefined,
+        @GraphQLDescription("Get only the repositories that match the given name")
+        filterByRepository: OptionalInput<String> = OptionalInput.Undefined
     ): Catalog =
         registryApi
             .catalog(
@@ -34,12 +36,12 @@ class AllRepositoriesQuery : Query {
                 skip = after.valueOrNull(),
                 take = first.valueOrNull()
             )
-            .handleResponse(context)
+            .handleResponse(context, filterByRepository = filterByRepository.valueOrNull())
 }
 
-private fun Response<RegistryCatalog>.handleResponse(context: Context): Catalog {
+private fun Response<RegistryCatalog>.handleResponse(context: Context, filterByRepository: String?): Catalog {
     return this.handleIfSuccessOrError(
-        success = { it.toCatalog(context) },
+        success = { it.toCatalog(context, filterByRepository) },
         error = { Catalog(clientUrl = null, error = it, repositories = null, context = context) }
     )
 }

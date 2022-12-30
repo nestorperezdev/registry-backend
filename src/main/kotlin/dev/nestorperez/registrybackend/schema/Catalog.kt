@@ -21,7 +21,29 @@ class Catalog(
     val repositories: List<Repository>?,
     @GraphQLIgnore
     val context: Context
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Catalog
+
+        if (clientUrl != other.clientUrl) return false
+        if (error != other.error) return false
+        if (repositories != other.repositories) return false
+        if (context != other.context) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = clientUrl?.hashCode() ?: 0
+        result = 31 * result + (error?.hashCode() ?: 0)
+        result = 31 * result + (repositories?.hashCode() ?: 0)
+        result = 31 * result + context.hashCode()
+        return result
+    }
+}
 
 @SkipCoverage
 class Repository(
@@ -42,4 +64,24 @@ class Repository(
             TagListLoaderInput(context = context, repositoryName = repositoryName, take = take, after = after)
         )
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Repository
+
+        if (repositoryName != other.repositoryName) return false
+        if (context != other.context) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = repositoryName.hashCode()
+        result = 31 * result + context.hashCode()
+        return result
+    }
+
+
 }

@@ -39,6 +39,7 @@ dependencies {
         exclude("junit")
     }
     testImplementation("com.ninja-squad:springmockk:3.0.1")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 }
 
 configurations {
