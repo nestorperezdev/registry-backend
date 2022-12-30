@@ -1,5 +1,6 @@
 package dev.nestorperez.registrybackend.query
 
+import com.expediagroup.graphql.generator.annotations.GraphQLDeprecated
 import com.expediagroup.graphql.generator.annotations.GraphQLDescription
 import com.expediagroup.graphql.generator.execution.OptionalInput
 import com.expediagroup.graphql.server.operations.Query
@@ -21,7 +22,7 @@ class TagListQuery : Query {
 
     @Autowired
     lateinit var registryApi: RegistryApi
-
+    @GraphQLDeprecated("Use repositoriesQuery instead")
     suspend fun tagsListQuery(
         context: Context, repositoryName: String,
         @GraphQLDescription("The number of tags to return")
